@@ -49,7 +49,7 @@ export function newServer() {
       })
       this.post('/login', (schema, request) => {
         const { username, password } = JSON.parse(request.requestBody)
-        if (username === 'user' && password === 'password') {
+        if (username === 'user' && password === '1234') {
           return {
             token: 'seu-token-de-autenticacao-simulado',
           }

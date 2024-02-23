@@ -1,10 +1,7 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import axios from 'redaxios'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import styles from '@/styles/Home.module.scss'
 
 const http = axios.create({
   baseURL: 'http://api.poly.com.br',
@@ -43,7 +40,7 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={styles.main}>
         <div>
           <h1>posts</h1>
           <form onSubmit={handleAddTask}>

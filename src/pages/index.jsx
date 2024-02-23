@@ -1,23 +1,27 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import axios from 'redaxios'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import { useRouter } from 'next/router'
 
-const inter = Inter({ subsets: ['latin'] })
+import styles from '@/styles/Home.module.scss'
+import { useRouter } from 'next/router'
+import CustomInput from '@/components/Login/Input/CustomInput'
+import IconLogo from '@/components/Login/Icons/IconLogo'
+
 const http = axios.create({
   baseURL: 'http://api.poly.com.br',
 })
 export default function Home() {
   const router = useRouter() // Movido o useRouter para fora do escopo da função handleLogin
-  const [username, setUsername] = useState('') // Adicionado estado para o nome de usuário
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const handleLogin = (event) => {
     event.preventDefault()
     http.post('api/login', { username, password }).then((response) => {
-      console.log(response)
-      router.push('/dashboard')
+      const token = response.data.token
+      console.log(token)
+      if (token) {
+        router.push('/dashboard')
+      }
     })
   }
   return (
@@ -28,10 +32,23 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <form onSubmit={handleLogin}>
-          <input onChange={(e) => setUsername(e.target.value)} />
-          <input onChange={(e) => setPassword(e.target.value)} />
+      <main className={styles.main}>
+        <IconLogo />
+        <form className={styles.form_box} onSubmit={handleLogin}>
+          <CustomInput
+            type="text"
+            value={username}
+            placeholder="Name"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <CustomInput
+            type="password"
+            value={password}
+            placeholder="Senha"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {/* <input onChange={(e) => setUsername(e.target.value)} />
+          <input onChange={(e) => setPassword(e.target.value)} /> */}
           <button type="submit">login</button>
         </form>
       </main>
