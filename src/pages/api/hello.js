@@ -39,7 +39,7 @@ export function newServer() {
             tasks: (await schema.tasks.all()).models,
           }
         },
-        { timing: 2000 },
+        { timing: 3000 },
       )
       this.post('/tasks', async (schema, request) => {
         const data = JSON.parse(request.requestBody)

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import axios from 'redaxios'
 import styles from '@/styles/Home.module.scss'
+import LoageCostumize from '@/components/Login/LoadeCostumize/LoadeCostumize'
 
 const http = axios.create({
   baseURL: 'http://api.poly.com.br',
@@ -31,7 +32,7 @@ export default function Dashboard() {
       })
     }
   }
-  if (isLoading) return <h1>Está carregando...</h1>
+  if (isLoading) return <LoageCostumize />
   return (
     <>
       <Head>
