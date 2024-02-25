@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'redaxios'
 import styles from '@/styles/Home.module.scss'
 import LoageCostumize from '@/components/Login/LoadeCostumize/LoadeCostumize'
+import Accordion from '@/components/Dashboard/Accordion/Accordion'
 
 const http = axios.create({
   baseURL: 'http://api.poly.com.br',
@@ -57,6 +58,7 @@ export default function Dashboard() {
             ))}
           </ul>
         </div>
+        <Accordion />
       </main>
     </>
   )
