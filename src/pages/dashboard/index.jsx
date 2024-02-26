@@ -12,12 +12,15 @@ const http = axios.create({
 export default function Dashboard() {
   const [tasks, updateTasks] = useState([])
   const [task, updateTask] = useState('')
+  const [url, updateUrl] = useState('')
   const [isLoading, updateIsLoading] = useState(false)
 
   useEffect(() => {
     updateIsLoading(true)
     http.get('/api/tasks').then((response) => {
       updateTasks(response.data.tasks)
+      console.log(tasks)
+      console.log(response.data)
       updateIsLoading(false)
     })
   }, [])
@@ -26,9 +29,13 @@ export default function Dashboard() {
     event.preventDefault()
     if (task.trim()) {
       updateIsLoading(true)
-      http.post('/api/tasks', { task }).then((response) => {
-        updateTasks((oldTasks) => [...oldTasks, response.data.task])
+      http.post('/api/tasks', { url, task }).then((response) => {
+        updateTasks((oldTasks) => [
+          ...oldTasks,
+          { task: response.data.task, url: response.data.url },
+        ])
         updateTask('')
+        updateUrl('')
         updateIsLoading(false)
       })
     }
@@ -42,23 +49,24 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={styles.main_post}>
         <div>
           <h1>posts</h1>
           <form onSubmit={handleAddTask}>
             <input
               onChange={(event) => updateTask(event.target.value)}
               value={task}
+              placeholder="Descricao"
+            />
+            <input
+              onChange={(event) => updateUrl(event.target.value)}
+              value={url}
+              placeholder="url"
             />
             <button>Add</button>
           </form>
-          <ul>
-            {tasks.map((t) => (
-              <li key={t.id}>{t.name}</li>
-            ))}
-          </ul>
         </div>
-        <Accordion />
+        <Accordion tasks={tasks} id={tasks.id} />
       </main>
     </>
   )

@@ -26,7 +26,7 @@ export function newServer() {
       }),
     },
     seeds(server) {
-      server.create('task', { name: 'minha tarefa' })
+      server.create('task')
       // server.createList('task', )
     },
     routes() {
@@ -44,7 +44,8 @@ export function newServer() {
       this.post('/tasks', async (schema, request) => {
         const data = JSON.parse(request.requestBody)
         return {
-          task: (await schema.tasks.create({ name: data.task })).attrs,
+          task: (await schema.tasks.create({ name: data.task, url: data.url }))
+            .attrs,
         }
       })
       this.post('/login', (schema, request) => {
