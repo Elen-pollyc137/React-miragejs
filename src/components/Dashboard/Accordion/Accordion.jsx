@@ -5,14 +5,12 @@ const Accordion = ({ tasks, id }) => {
     <section className={styles.container}>
       <div className={styles.box}>
         {' '}
-        <ul>
-          {tasks.map((t) => (
-            <li key={id}>
-              <img src={t.url} alt="" />
-              <p>{t.name}</p>
-            </li>
-          ))}
-        </ul>
+        {tasks.map((t) => (
+          <li key={id}>
+            <img src={t.url} alt="" />
+            <p>{t.name}</p>
+          </li>
+        ))}
       </div>
     </section>
   )

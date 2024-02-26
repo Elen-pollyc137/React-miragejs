@@ -56,6 +56,7 @@
 html,
 body {
   background: #27262c;
+  color: var(--gray-4);
   font-family: var(--poppins);
   --webkit-font-smoothing: antialiased;
   @media screen and (min-width: 1024px) and (max-with: 1899px) {

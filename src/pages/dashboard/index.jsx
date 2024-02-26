@@ -19,8 +19,7 @@ export default function Dashboard() {
     updateIsLoading(true)
     http.get('/api/tasks').then((response) => {
       updateTasks(response.data.tasks)
-      console.log(tasks)
-      console.log(response.data)
+
       updateIsLoading(false)
     })
   }, [])
@@ -50,7 +49,7 @@ export default function Dashboard() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main_post}>
-        <div>
+        <div className={styles.box_post}>
           <h1>posts</h1>
           <form onSubmit={handleAddTask}>
             <input
@@ -66,7 +65,9 @@ export default function Dashboard() {
             <button>Add</button>
           </form>
         </div>
-        <Accordion tasks={tasks} id={tasks.id} />
+        <div className={styles.box_acor}>
+          <Accordion tasks={tasks} id={tasks.id} />
+        </div>
       </main>
     </>
   )
